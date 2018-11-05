@@ -5,7 +5,10 @@ import App from './App'
 import router from './router'
 import Api from './util/axios'
 import store from './store'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 Vue.prototype.$axios = Api
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
