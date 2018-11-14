@@ -8,10 +8,10 @@
     </el-form-item>
     <p>温馨提示：未注册过的账号，登录时将自动注册</p>
     <p>注册过的用户可凭账号密码登录</p>
-    <el-button type="primary" @click="submitForm('formInline')">登录</el-button>
-    <button @click="login">tokentest--登录</button>
-    <button @click="getInfo">tokentest--用户信息</button>
-    <button @click="logout">tokentest--登出</button>
+    <el-button type="primary" @click.prevent="submitForm('formInline')">登录</el-button>
+    <button @click.prevent="login">tokentest--登录</button>
+    <button @click.prevent="getInfo">tokentest--用户信息</button>
+    <button @click.prevent="logout">tokentest--登出</button>
   </el-form>
 </template>
 
@@ -64,8 +64,8 @@ export default {
     },
     login () {
       this.$axios.post('http://localhost:8001/api/login', this.formInline).then((res) => {
-        if (res.data.token) {
-          localStorage.setItem('aliToken', res.data.token)
+        if (res.data) {
+          localStorage.setItem('aliToken', res.data)
         }
       })
     },
