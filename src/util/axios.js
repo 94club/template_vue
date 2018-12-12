@@ -1,7 +1,5 @@
 import axios from 'axios'
-import store from '../store'
 import router from '../router'
-import {Notification} from 'element-ui'
 
 const axiosIns = axios.create()
 axiosIns.defaults.retry = 1
@@ -38,25 +36,9 @@ axiosIns.interceptors.request.use(function (config) {
 // 拦截响应，遇到token不合法则报错
 axios.interceptors.response.use(
   response => {
-    if (response.data.data.token) {
-      console.log('token:', response.data.data.token)
-      window.localStorage.setItem('ali_token', response.data.data.token)
-    }
     return response
   },
   error => {
-    const errRes = error.response
-    if (errRes.status === 401) {
-      window.localStorage.removeItem('ali_token')
-      Notification.error({
-        title: 'Auth Error!',
-        message: 'please login'
-      })
-      router.replace('/login')
-      setTimeout(() => {
-        window.location.reload()
-      }, 0)
-    }
     return Promise.reject(error.message) // 返回接口返回的错误信息
   }
 )
@@ -68,26 +50,13 @@ ajaxMethod.forEach((method) => {
     return new Promise(function (resolve, reject) {
       axiosIns[method](uri, data, config).then((response) => {
         if (response.data.status === 401) {
-          Notification.error({
-            title: 'Auth Error!',
-            message: 'please login'
-          })
           router.push('/login')
         } else if (response.data.status === 0) {
-          Notification.error({
-            title: '提示',
-            message: response.data.message
-          })
         } else {
           resolve(response.data)
         }
       }).catch(function (error) {
         console.log(error)
-        store.state.btnLoading = false
-        Notification.error({
-          title: '网络故障',
-          message: '请联系管理员'
-        })
         if (error.response) {
           // 请求已发出，但服务器响应的状态码不在 2xx 范围内
           // console.log(error.response.data)

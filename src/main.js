@@ -5,14 +5,14 @@ import App from './App'
 import router from './router'
 import Api from './util/axios'
 import store from './store'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import toastPlugin from './components/toast' // toast使用插件的形式
-Vue.prototype.$axios = Api
-Vue.use(ElementUI)
+import AliAlert from './components/alert' // alert使用挂载方法的形式  参数必须传
 
+Vue.prototype.$axios = Api
 Vue.config.productionTip = false
+
 Vue.use(toastPlugin)
+Vue.prototype.$alert = AliAlert
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
