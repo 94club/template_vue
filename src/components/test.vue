@@ -12,6 +12,7 @@
     <button @click.prevent="login">tokentest--登录</button>
     <button @click.prevent="getInfo">tokentest--用户信息</button>
     <button @click.prevent="logout">tokentest--登出</button>
+    <button @click.prevent="toast">调用toast</button>
   </el-form>
 </template>
 
@@ -78,6 +79,9 @@ export default {
       this.$axios.get('http://localhost:8001/user/info').then((res) => {
         console.log(res.data)
       })
+    },
+    toast () {
+      this.$toast({msg: '中月，不要让我见到你！！！'})
     }
   }
 }
