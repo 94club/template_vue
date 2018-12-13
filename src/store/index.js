@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const state = {}
+const state = {
+  userinfo: ''
+}
 const getters = {}
 const actions = {}
 const mutations = {}
