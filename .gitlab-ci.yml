@@ -18,7 +18,7 @@ job1:
         - if [ -d "front" ] ; then
         - sudo rm -rf front
         - fi
-        - sudo cp -rf /home/gitlab-runner/builds/yPK5WDt3/0/mobile/h5 /data/wap
+        - sudo cp -rf /home/gitlab-runner/builds/yPK5WDt3/0/mobile/front /data/wap
 job2:
     stage: master_deploy
     only:
