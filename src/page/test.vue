@@ -2,6 +2,9 @@
   <div>
     <button @click="toast">调用toast</button>
     <button @click="alert">调用alert</button>
+    <button @click="alert">调用alert</button>
+    <button @click="alert">调用alert</button>
+    <button @click="alert">调用alert</button>
   </div>
 </template>
 
