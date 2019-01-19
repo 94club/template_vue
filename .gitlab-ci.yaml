@@ -1,0 +1,42 @@
+stages:
+    - branch_deploy
+    - master_deploy
+    - urgent_deploy
+cache:
+    paths:
+        - node_modules/
+job1:
+    stage: branch_deploy
+    except:
+        - master
+    tags:
+        - front_dev_tag
+    script:
+        - yarn install
+        - yarn run build
+        - cd /data/wap
+        - if [ -d "h5" ] ; then
+        - sudo rm -rf h5
+        - fi
+        # - sudo cp -rf /home/gitlab-runner/builds/yPK5WDt3/0/mobile/h5/data/wap
+job2:
+    stage: master_deploy
+    only:
+        - master
+    when: manual
+    tags:
+        - front_master_tag
+    script:
+        - yarn install
+        - yarn run build
+        # - cd /data/wap
+
+job3:
+    stage: urgent_deploy
+    only:
+        - urgent
+    when: manual
+    tags:
+        - front_urgent_tag
+    script: 
+        - yarn install
