@@ -3,10 +3,20 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const state = {}
+const state = {
+  userInfo: ''
+}
 const getters = {}
-const actions = {}
-const mutations = {}
+const actions = {
+  updateUserInfo ({commit}, data) {
+    commit('updateUserInfo', data)
+  }
+}
+const mutations = {
+  'updateUserInfo': (state, data) => {
+    state.userInfo = data
+  }
+}
 
 export default new Vuex.Store({
   state,
