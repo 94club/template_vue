@@ -1,7 +1,6 @@
 stages:
     - branch_deploy
     - master_deploy
-    - urgent_deploy
 cache:
     paths:
         - node_modules/
@@ -31,12 +30,3 @@ job2:
         - yarn run build
         # - cd /data/wap
 
-job3:
-    stage: urgent_deploy
-    only:
-        - urgent
-    when: manual
-    tags:
-        - front_urgent_tag
-    script: 
-        - yarn install
