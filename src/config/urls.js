@@ -1,5 +1,5 @@
 export default {
-  login: '/user/login',
+  login: '/api/login',
   logout: '/user/logout',
   userInfo: '/user/info'
 }

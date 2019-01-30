@@ -14,8 +14,8 @@ if (process.env.NODE_ENV === 'development') {
 
 // 添加请求拦截器
 axiosIns.interceptors.request.use(function (config) {
-  const aliToken = window.localStorage.getItem('aliToken')
-  if (aliToken) {
+  const token = window.localStorage.getItem('token')
+  if (token) {
     /*
       此处有坑，在此记录
       config.headers['Authorization']
@@ -24,7 +24,7 @@ axiosIns.interceptors.request.use(function (config) {
       浏览器查看也没有任何问题，但是在后端会报401并且后端一律只能拿到小写的，
       也就是res.headers.authorization，后端用大写获取会报undefined
     */
-    config.headers['Authorization'] = `Bearer ${aliToken}`
+    config.headers['Authorization'] = `Bearer ${token}`
   }
   // 在发送请求之前做些什么
   return config
@@ -53,7 +53,7 @@ ajaxMethod.forEach((method) => {
           router.push('/login')
         } else if (response.data.status === 0) {
         } else {
-          resolve(response.data)
+          resolve(response.data.data)
         }
       }).catch(function (error) {
         console.log(error)

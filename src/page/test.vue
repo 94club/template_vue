@@ -12,12 +12,17 @@
       <button @click="goPage1">goPage1</button>
       <button @click="goPage2">goPage2</button>
       <button @click="goPage3">goPage3</button>
+      <button @click="goLogin">登录</button>
+      <button @click="getUserInfo">获取个人信息</button>
+      <button @click="goLogout">登出</button>
     </div>
   </div>
 </template>
 
 <script>
 import TopHead from '../components/topHead'
+import urls from '../config/urls'
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -32,8 +37,34 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'updateUserInfo'
+    ]),
+    goLogin () {
+      this.$axios.post(urls.login, {username: 'admin', password: '123456'}).then((res) => {
+        console.log(res)
+        if (res) {
+          localStorage.setItem('token', res)
+          this.getUserInfo()
+        }
+      })
+    },
+    getUserInfo () {
+      this.$axios.get(urls.userInfo).then((res) => {
+        if (res) {
+          this.updateUserInfo(res)
+        }
+      })
+    },
+    goLogout () {
+      this.$axios.post(urls.logout).then((res) => {
+        if (res) {
+          this.updateUserInfo('')
+        }
+      })
+    },
     toast () {
-      this.$toast({msg: '中月，要努力学习'})
+      this.$toast({msg: '要努力学习'})
     },
     alert () {
       this.$alert({
@@ -56,8 +87,7 @@ export default {
     },
     goPage3 () {
       this.$router.push({path: '/page3'})
-    },
-    goLogin () {}
+    }
   }
 }
 </script>
